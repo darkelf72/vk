@@ -3,10 +3,11 @@ import requests
 import time
 from datetime import datetime
 import csv
+import mylib
 
 #https://oauth.vk.com/authorize?client_id=6428597&scope=friends,offline&redirect_uri=https://oauth.vk.com/blank.html&display=page&v=5.73&response_type=token
 api = 'https://api.vk.com/method/'
-access_token = '67430c02481fd18e0a63795f7ff785779855aedeb74d608adf401268a20753dab07d75a7625fc7a12d940'
+access_token = mylib.access_token
 v = '5.73'
 
 #Возвращает список идентификаторов друзей пользователя или расширенную информацию о друзьях пользователя
