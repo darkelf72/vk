@@ -17,7 +17,7 @@ def friends_get(user_id):
     parameters['access_token'] = access_token
     parameters['v'] = v
     parameters['user_id'] = user_id
-    parameters['fields'] = 'sex,domain,nickname,city,last_seen'
+    parameters['fields'] = 'sex,domain,nickname,city,last_seen,bdate'
     r = requests.get(api + method_name, parameters)
     result = json.loads(r.text)['response']['items']
     print('Friends of', user_id, ':', len(result))
@@ -110,6 +110,20 @@ def friends_delete(user_id):
     result = json.loads(r.text)
     print('User', user_id, result)
     return result
+
+#Отправляет сообщение
+def messages_send(user_id,message,attachment):
+    method_name = 'messages.send'
+    parameters = {}
+    parameters['access_token'] = access_token
+    parameters['v'] = v
+    parameters['user_id'] = user_id
+    parameters['user_id'] = message
+    parameters['attachment'] = attachment
+    r = requests.get(api + method_name, parameters)
+    result = json.loads(r.text)
+    print('Message have sent to', user_id, result)
+    return result    
 
 def users_to_csv(users, file_name):
     csv_rows = []
