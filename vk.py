@@ -3,6 +3,9 @@ import requests
 import time
 from datetime import datetime
 import csv
+
+import sys
+sys.path.append('../')
 import mylib
 
 #https://oauth.vk.com/authorize?client_id=6428597&scope=friends,photos,messages,offline,groups&redirect_uri=https://oauth.vk.com/blank.html&display=page&v=5.73&response_type=token
@@ -118,7 +121,7 @@ def messages_send(user_id,message,attachment):
     parameters['access_token'] = access_token
     parameters['v'] = v
     parameters['user_id'] = user_id
-    parameters['user_id'] = message
+    parameters['message'] = message
     parameters['attachment'] = attachment
     r = requests.get(api + method_name, parameters)
     result = json.loads(r.text)
