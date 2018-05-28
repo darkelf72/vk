@@ -5,7 +5,7 @@ from datetime import datetime
 import csv
 import mylib
 
-#https://oauth.vk.com/authorize?client_id=6428597&scope=friends,offline&redirect_uri=https://oauth.vk.com/blank.html&display=page&v=5.73&response_type=token
+#https://oauth.vk.com/authorize?client_id=6428597&scope=friends,photos,messages,offline,groups&redirect_uri=https://oauth.vk.com/blank.html&display=page&v=5.73&response_type=token
 api = 'https://api.vk.com/method/'
 access_token = mylib.access_token
 v = '5.73'
@@ -17,7 +17,7 @@ def friends_get(user_id):
     parameters['access_token'] = access_token
     parameters['v'] = v
     parameters['user_id'] = user_id
-    parameters['fields'] = 'sex,domain,nickname,city,last_seen,bdate'
+    parameters['fields'] = 'sex,domain,nickname,city,last_seen,bdate,online'
     r = requests.get(api + method_name, parameters)
     result = json.loads(r.text)['response']['items']
     print('Friends of', user_id, ':', len(result))

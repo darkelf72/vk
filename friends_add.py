@@ -46,7 +46,7 @@ users = vk.users_from_csv(group_id,27274486)
 now = datetime.now()
 file_name = now.strftime("%Y%m%d_%H%M%S")
 for user in users:
-    f = open(file_name+'.log', "a")
+    f = open(file_name+'.log', "a", encoding='utf-8')
     now = datetime.now()
     print(now.strftime("%Y/%m/%d %H:%M:%S"))
     f.write(now.strftime("%Y/%m/%d %H:%M:%S") + ',')
