@@ -108,3 +108,6 @@ venv.bak/
 
 # mylib
 mylib.py
+
+# logs
+/log
