@@ -45,10 +45,11 @@ text = '''
 Приходи на следующую игру 7 Июня в 19:06 в гриль-бар Колбас-Барабас и блесни логикой, эрудицией, интуицией и чувством юмора;)
 '''
 
+group_id = 'ESLPodcast72'
 group_id = 'mozgoboj_tmn'
-#group_id = 'ESLPodcast72'
-#vk.users_to_csv(vk.groups_get(group_id),group_id)
-users = vk.users_from_csv(group_id,243459990)
+group_id = 'quizplease_tmn'
+
+users = vk.users_from_csv(group_id,0)
 
 now = datetime.now()
 file_name = now.strftime("%Y%m%d_%H%M%S")

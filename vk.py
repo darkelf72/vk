@@ -64,8 +64,12 @@ def users_get(user_ids):
 #Возвращает список сообществ указанного пользователя
 def groups_get(group_id):
     users = []
+    friends = friends_get(480707139)
     members = groups_get_members(group_id)
     for member in members:
+        #если пользователь уже есть в друзьях у Сергеева, то не добавляем его в список
+        if next((True for friend in friends if friend["id"] == member), False):
+            continue
         user = users_get(member)
         users.append(user)
         time.sleep(0.4)
@@ -94,7 +98,7 @@ def friends_get_requests(user_id):
     parameters['access_token'] = access_token
     parameters['v'] = v
     parameters['user_id'] = user_id
-    parameters['offset'] = 100
+    #parameters['offset'] = 100
     parameters['count'] = 1000
     parameters['out'] = 1
     r = requests.get(api + method_name, parameters)
