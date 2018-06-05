@@ -79,4 +79,9 @@ for user in users:
         break
     f.write('\n')
     f.close()
-    time.sleep(1200)
+    #если уже 23, то ждем 8 часов
+    if datetime.now().hour == 23: 
+        time.sleep(28800)
+    #иначе обычный дилэй в 20 минут
+    else:
+        time.sleep(1200)
