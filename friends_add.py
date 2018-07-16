@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime
 import time
 import vk
@@ -45,11 +46,18 @@ text = '''
 Приходи на следующую игру 7 Июня в 19:06 в гриль-бар Колбас-Барабас и блесни логикой, эрудицией, интуицией и чувством юмора;)
 '''
 
+text = '''
+Привет&#128075; Лига Индиго собирает под одной крышей умных, талантливых и веселых людей.
+Лига Индиго - это не просто очередной квиз&#9757; Раунды ligaindigo.ru/raunds настолько разнообразны, что каждый игрок в команде сможет проявить себя.
+Мы уже провели несколько игр, и это было круто&#128293; Фотоотчеты ты можешь посмотреть в нашей группе vk.com/li_tyumen.
+Следующая игра не за горами, не пропусти;)
+'''
+
 group_id = 'ESLPodcast72'
 group_id = 'mozgoboj_tmn'
 group_id = 'quizplease_tmn'
 
-users = vk.users_from_csv(group_id,0)
+users = vk.users_from_csv(group_id,275121668)
 
 now = datetime.now()
 file_name = now.strftime("%Y%m%d_%H%M%S")

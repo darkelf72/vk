@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json 
 import requests
 import time
@@ -131,6 +132,19 @@ def messages_send(user_id,message,attachment):
     result = json.loads(r.text)
     print('Message have sent to', user_id, result)
     return result    
+
+#Позволяет приглашать друзей в группу
+def groups_invite(group_id,user_id):
+    method_name = 'groups.invite'
+    parameters = {}
+    parameters['access_token'] = access_token
+    parameters['v'] = v
+    parameters['group_id'] = group_id
+    parameters['user_id'] = user_id
+    r = requests.get(api + method_name, parameters)
+    result = json.loads(r.text)
+    print(user_id, 'was invited to', group_id, result)
+    return result   
 
 def users_to_csv(users, file_name):
     csv_rows = []
