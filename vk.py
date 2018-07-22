@@ -146,6 +146,48 @@ def groups_invite(group_id,user_id):
     print(user_id, 'was invited to', group_id, result)
     return result   
 
+#Позволяет искать записи на стене в соответствии с заданными критериями
+def wall_search(owner_id,query):
+    method_name = 'wall.search'
+    parameters = {}
+    parameters['access_token'] = access_token
+    parameters['v'] = v
+    parameters['owner_id'] = -owner_id
+    parameters['query'] = query
+    parameters['owners_only'] = 1
+    parameters['count'] = 100
+    parameters['offset'] = 0
+
+    result = []
+    while 1==1:
+        r = requests.get(api + method_name, parameters)
+        res = json.loads(r.text)['response']['items']
+        result = result + res
+        parameters['offset'] = parameters['offset'] + 100
+        if len(res) != 100:
+            break
+
+    print('Wall of', owner_id, 'has', len(result), 'items with text', query)
+    return result   
+
+#Возвращает список комментариев к записи на стене
+def wall_get_comments(owner_id,post_id):
+    method_name = 'wall.getComments'
+    parameters = {}
+    parameters['access_token'] = access_token
+    parameters['v'] = v
+    parameters['owner_id'] = -owner_id
+    parameters['post_id'] = post_id
+    parameters['count'] = 100
+    parameters['offset'] = 0
+    parameters['sort'] = 'desc'
+    parameters['extended'] = 1
+    #parameters['fields'] = ''
+    r = requests.get(api + method_name, parameters)
+    result = json.loads(r.text)['response']
+    print('Post', post_id, 'has', len(result['items']), 'comments')
+    return result   
+
 def users_to_csv(users, file_name):
     csv_rows = []
     for user in users:
@@ -165,6 +207,14 @@ def users_to_csv(users, file_name):
     writer.writerows(csv_rows)
     f.close()
     print('Saved', len(csv_rows), 'users to file', file_name)
+
+def to_csv(rows, file_name):
+    f = open(file_name+'.txt', "w", newline="", encoding='utf-8')
+    writer = csv.DictWriter(f,fieldnames=rows[0].keys())#,delimiter='\t')
+    writer.writeheader()
+    writer.writerows(rows)
+    f.close()
+    print('Saved', len(rows), 'rows to file', file_name)
 
 
 def users_from_csv(file_name, last_id):
