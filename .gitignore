@@ -105,6 +105,8 @@ venv.bak/
 
 # csv files
 *.csv
+*.xlsx
+*.txt
 
 # mylib
 mylib.py
