@@ -15,13 +15,14 @@ message = '''
 
 while 1 == 1:
     print(datetime.now())
-    if datetime.now().hour == 10:  
+    #на pythonanywhere время по гринвичу, поэтому -5 часов
+    if datetime.now().hour == 10 - 5:
         friends = vk.friends_get(user_id)
         for friend in friends:
             if 'bdate' not in friend:
                 continue
             bdate = friend['bdate'].split('.')
-            if datetime.today().month == int(bdate[1]) and datetime.today().day == int(bdate[0]):       
+            if datetime.today().month == int(bdate[1]) and datetime.today().day == int(bdate[0]):
             #if friend['id'] == 5879128:
                 attachment = 'photo' + str(user_id) + '_' + '456239022'
                 vk.messages_send(friend['id'],message,attachment)
