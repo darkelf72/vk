@@ -3,7 +3,12 @@ import time
 import vk
 
 owner_id = 124597198 #mzgb_tmn
+owner_id = 155184737 #quizplease_tmn
+owner_id = 141854271 #quizium_tmn
 query = 'Регистрация'
+query = ''
+keyword = 'чел'
+keyword = ''
 exclude_id = []
 exclude_id.append(owner_id)
 exclude_id.append(376951514) #mozgobojtmn
@@ -19,7 +24,7 @@ for post in posts:
     for comment in comments:
         if abs(comment['from_id']) in exclude_id:
             continue
-        if 'чел' not in (comment['text']):
+        if keyword != '' and keyword not in (comment['text']):
             continue
 
         for profile in profiles:
@@ -36,7 +41,7 @@ for post in posts:
         else:
             csv_row['screen_name'] = 'deleted'
         csv_row['text'] = comment['text'].replace('\n','')
-
+        print(csv_row)
         csv_rows.append(csv_row)
     #break
 vk.to_csv(csv_rows,str(owner_id))
