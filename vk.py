@@ -149,6 +149,29 @@ def groups_invite(group_id,user_id):
     print(user_id, 'was invited to', group_id, result)
     return result   
 
+#Возвращает список записей со стены пользователя или сообщества
+def wall_get(owner_id):
+    method_name = 'wall.get'
+    parameters = {}
+    parameters['access_token'] = access_token
+    parameters['v'] = v
+    parameters['owner_id'] = -owner_id
+    #parameters['filter'] = 'owner'
+    parameters['count'] = 100
+    parameters['offset'] = 0
+
+    result = []
+    while 1 == 1:
+        r = requests.get(api + method_name, parameters)
+        res = json.loads(r.text)['response']['items']
+        result = result + res
+        parameters['offset'] = parameters['offset'] + parameters['count']
+        if len(res) != parameters['count']:
+            break
+
+    print('Wall of', owner_id, 'has', len(result), 'items')
+    return result   
+
 #Позволяет искать записи на стене в соответствии с заданными критериями
 def wall_search(owner_id,query):
     method_name = 'wall.search'
@@ -192,7 +215,7 @@ def wall_get_comments(owner_id,post_id):
     return result   
 
 def to_csv(rows, file_name):
-    f = open(file_name+'.csv', "w", newline="", encoding='utf-8')
+    f = open(file_name+'.txt', "w", newline="", encoding='utf-8')
     writer = csv.DictWriter(f,fieldnames=rows[0].keys())#,delimiter='\t')
     writer.writeheader()
     writer.writerows(rows)

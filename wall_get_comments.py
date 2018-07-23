@@ -5,16 +5,19 @@ import vk
 owner_id = 124597198 #mzgb_tmn
 owner_id = 155184737 #quizplease_tmn
 owner_id = 141854271 #quizium_tmn
-query = 'Регистрация'
-query = ''
-keyword = 'чел'
-keyword = ''
 exclude_id = []
 exclude_id.append(owner_id)
-exclude_id.append(376951514) #mozgobojtmn
+exclude_id.append(376951514) #mozgobojtmn, Анна Ветрова
+exclude_id.append(3991928) #id3991928, Антон Сковороднев
+exclude_id.append(5947289) #germanoff, Дима Германов
+
+query = 'Регистрация'
+keyword = 'чел'
+keyword = ''
 csv_rows = []
 
-posts = vk.wall_search(owner_id,query)
+#posts = vk.wall_search(owner_id,query)
+posts = vk.wall_get(owner_id)
 for post in posts:
     response = vk.wall_get_comments(owner_id,post['id'])
     time.sleep(0.4)
