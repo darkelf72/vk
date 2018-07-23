@@ -3,8 +3,8 @@ from datetime import datetime
 import time
 import vk
 
-user_id = 5879128
-user_id = 480707139
+user_id = 5879128 #rodionov_sa
+user_id = 480707139 #li_in_tyumen
 
 message = '''
 Привет&#128075;

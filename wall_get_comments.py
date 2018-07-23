@@ -2,9 +2,11 @@ from datetime import datetime
 import time
 import vk
 
-owner_id = 124597198
+owner_id = 124597198 #mzgb_tmn
 query = 'Регистрация'
-exclude_id = [owner_id,376951514]
+exclude_id = []
+exclude_id.append(owner_id)
+exclude_id.append(376951514) #mozgobojtmn
 csv_rows = []
 
 posts = vk.wall_search(owner_id,query)
@@ -37,5 +39,5 @@ for post in posts:
 
         csv_rows.append(csv_row)
     #break
-vk.to_csv(csv_rows,'test')
+vk.to_csv(csv_rows,str(owner_id))
 

@@ -35,15 +35,18 @@ def groups_get_members(group_id):
     parameters['access_token'] = access_token
     parameters['v'] = v
     parameters['group_id'] = group_id
+    parameters['count'] = 1000
     parameters['offset'] = 0
     result = []
-    while 1==1:
+
+    while 1 == 1:
         r = requests.get(api + method_name, parameters)
         res = json.loads(r.text)['response']['items']
         result = result + res
-        parameters['offset'] = parameters['offset'] + 1000
-        if len(res) != 1000:
+        parameters['offset'] = parameters['offset'] + parameters['count']
+        if len(res) != parameters['count']:
             break
+
     print('Members of', group_id, ':', len(result))
     return result
 #groups_get_members('mozgoboj_tmn')
@@ -62,13 +65,13 @@ def users_get(user_ids):
     return result
 #users_get('mozgobojtmn')
 
-#Возвращает список сообществ указанного пользователя
-def groups_get(group_id):
+#Возвращает список участников сообщества (с расширенной информацией), которых нет в друзьях у указанного пользователя
+def groups_get(group_id,user_id):
     users = []
-    friends = friends_get(480707139)
+    friends = friends_get(user_id)
     members = groups_get_members(group_id)
     for member in members:
-        #если пользователь уже есть в друзьях у Сергеева, то не добавляем его в список
+        #если пользователь уже есть в друзьях у указанного пользователя, то не добавляем его в список
         if next((True for friend in friends if friend["id"] == member), False):
             continue
         user = users_get(member)
@@ -159,12 +162,12 @@ def wall_search(owner_id,query):
     parameters['offset'] = 0
 
     result = []
-    while 1==1:
+    while 1 == 1:
         r = requests.get(api + method_name, parameters)
         res = json.loads(r.text)['response']['items']
         result = result + res
-        parameters['offset'] = parameters['offset'] + 100
-        if len(res) != 100:
+        parameters['offset'] = parameters['offset'] + parameters['count']
+        if len(res) != parameters['count']:
             break
 
     print('Wall of', owner_id, 'has', len(result), 'items with text', query)
@@ -188,33 +191,13 @@ def wall_get_comments(owner_id,post_id):
     print('Post', post_id, 'has', len(result['items']), 'comments')
     return result   
 
-def users_to_csv(users, file_name):
-    csv_rows = []
-    for user in users:
-        if 'deactivated' in user:
-            continue
-        if 'last_seen' in user:
-            last_seen = datetime.fromtimestamp(user['last_seen']['time'])
-            if last_seen.year < datetime.today().year:
-                continue
-        if 'city' in user:
-            if user['city']['title'] != 'Тюмень':
-                continue
-        csv_rows.append({'id':user['id'],'last_name':user['last_name'],'first_name':user['first_name'],'domain':user['domain']})
-        
-    f = open(file_name+'.csv', "w", newline="", encoding='utf-8')
-    writer = csv.DictWriter(f,['id','last_name','first_name','domain'])
-    writer.writerows(csv_rows)
-    f.close()
-    print('Saved', len(csv_rows), 'users to file', file_name)
-
 def to_csv(rows, file_name):
-    f = open(file_name+'.txt', "w", newline="", encoding='utf-8')
+    f = open(file_name+'.csv', "w", newline="", encoding='utf-8')
     writer = csv.DictWriter(f,fieldnames=rows[0].keys())#,delimiter='\t')
     writer.writeheader()
     writer.writerows(rows)
     f.close()
-    print('Saved', len(rows), 'rows to file', file_name)
+    print('Saved', len(rows), 'rows to file', file_name + '.csv')
 
 
 def users_from_csv(file_name, last_id):
@@ -228,11 +211,3 @@ def users_from_csv(file_name, last_id):
     f.close()
     print('Loaded', len(users), 'users from file', file_name)
     return users
-
-def items_to_csv(items, file_name):
-    f = open(file_name+'.csv', "w", newline="", encoding='utf-8')
-    for item in items:
-        f.write(str(item))
-        f.write('\n')
-    f.close()
-    print('Saved',len(items),'items to',file_name)
