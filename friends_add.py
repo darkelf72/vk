@@ -92,7 +92,7 @@ for user in users:
             print('captcha_img:', response['error']['captcha_img'])
             f.write('captcha_sid: ' + str(response['error']['captcha_sid']) + ',')
             f.write('captcha_img: ' + response['error']['captcha_img'] + ',')
-        break
+            break
     f.write('\n')
     f.close()
     #если уже 23, то ждем 8 часов
