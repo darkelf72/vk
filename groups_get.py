@@ -1,12 +1,15 @@
+from datetime import datetime
 import vk
 
+group = 'ESLPodcast72'
 group = 'mzgb_tmn'
 group = 'quizplease_tmn'
 group = 'quizium_tmn'
+group = 'komnatatyumen'
 user_id = 480707139 #li_in_tyumen
 
 csv_rows = []
-users = vk.groups_get(group)
+users = vk.groups_get(group,user_id)
 for user in users:
     if 'deactivated' in user:
         continue
@@ -19,8 +22,8 @@ for user in users:
             continue
     csv_row = {}
     csv_row['id'] = user['id']
-    csv_row['name'] = user['last_name'] + ' ' + user['last_name']
+    csv_row['name'] = user['last_name'] + ' ' + user['first_name']
     csv_row['domain'] = user['domain']
     csv_rows.append(csv_row)
-
-vk.to_csv(csv_rows,group)
+if len(csv_rows) > 0:
+	vk.to_csv(csv_rows,group)

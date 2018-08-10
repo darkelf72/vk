@@ -60,12 +60,20 @@ text = '''
 Приходи на следующую игру 2 Августа в 19:08 в гриль-бар Колбас-Барабас и блесни логикой, эрудицией, интуицией и чувством юмора;)
 '''
 
+text = '''
+Привет&#128075; Лига Индиго собирает под одной крышей умных, талантливых и веселых людей.
+Лига Индиго - это не просто очередной квиз&#9757; Раунды ligaindigo.ru/raunds настолько разнообразны, что каждый игрок в команде сможет проявить себя.
+Мы уже провели несколько игр, и это было круто&#128293; Фотоотчеты есть в нашей группе vk.com/li_tyumen.
+Приходи на следующую игру 16 Августа в 19:08 в ресторан Максимиланс и блесни логикой, эрудицией, интуицией и чувством юмора;)
+'''
+
 group_id = 'ESLPodcast72'
 group_id = 'mozgoboj_tmn'
 group_id = 'quizplease_tmn'
 group_id = 'quizium_tmn'
+group_id = 'komnatatyumen'
 
-users = vk.users_from_csv(group_id,6876976)
+users = vk.users_from_csv(group_id,0)
 
 now = datetime.now()
 file_name = now.strftime("%Y%m%d_%H%M%S")
@@ -74,12 +82,16 @@ for user in users:
     now = datetime.now()
     print(now.strftime("%Y/%m/%d %H:%M:%S"))
     f.write(now.strftime("%Y/%m/%d %H:%M:%S") + ',')
-    print(user['id'], user['last_name'], user['first_name'], user['domain'])
-    f.write(str(user['id']) + ',' + user['last_name'] + ',' + user['first_name'] + ',' + user['domain'] + ',')
+    print(user['id'], user['name'], user['domain'])
+    f.write(str(user['id']) + ',' + user['name'] + ',' + user['domain'] + ',')
     #text = now.strftime("%d/%m/%y %H:%M")
     response = vk.friends_add(user['id'],text)
 
+    #csv_row = {}
+    #csv_row.update(user)
+
     if 'response' in response:
+        #csv_row.update(response)
         print('response:', response['response'])
         f.write(str(response['response']) + ',')
     if 'error' in response:

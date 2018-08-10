@@ -2,7 +2,6 @@
 import json 
 import requests
 import time
-from datetime import datetime
 import csv
 
 import sys
@@ -229,7 +228,7 @@ def users_from_csv(file_name, last_id):
     users = []
     for row in reader:
         if int(row[0]) > last_id:
-            users.append({'id':row[0],'last_name':row[1],'first_name':row[2],'domain':row[3]})
+            users.append({'id':row[0],'name':row[1],'domain':row[2]})
     #users.sort()
     f.close()
     print('Loaded', len(users), 'users from file', file_name)
