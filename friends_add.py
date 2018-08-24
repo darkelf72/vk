@@ -73,44 +73,35 @@ group_id = 'quizplease_tmn'
 group_id = 'quizium_tmn'
 group_id = 'komnatatyumen'
 
-users = vk.users_from_csv(group_id,0)
+users = vk.users_from_csv(group_id,6786949)
 
-now = datetime.now()
-file_name = now.strftime("%Y%m%d_%H%M%S")
+mode = 'w'
+file_name = datetime.now().strftime("%Y%m%d_%H%M%S")
 for user in users:
-    f = open(file_name+'.log', "a", encoding='utf-8')
-    now = datetime.now()
-    print(now.strftime("%Y/%m/%d %H:%M:%S"))
-    f.write(now.strftime("%Y/%m/%d %H:%M:%S") + ',')
-    print(user['id'], user['name'], user['domain'])
-    f.write(str(user['id']) + ',' + user['name'] + ',' + user['domain'] + ',')
-    #text = now.strftime("%d/%m/%y %H:%M")
-    response = vk.friends_add(user['id'],text)
+    csv_rows = []
+    csv_row = {}
+    csv_row['dt'] = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+    csv_row.update(user)
 
-    #csv_row = {}
-    #csv_row.update(user)
+    r = vk.friends_add(user['id'],text)
+    if 'response' in r:
+        csv_row['response'] = r['response']
+    if 'error' in r:
+        csv_row.update(r['error'])
 
-    if 'response' in response:
-        #csv_row.update(response)
-        print('response:', response['response'])
-        f.write(str(response['response']) + ',')
-    if 'error' in response:
-        print('error_code:', response['error']['error_code'])
-        print('error_msg:', response['error']['error_msg'])
-        f.write('error_code: ' + str(response['error']['error_code']) + ',')
-        f.write('error_msg: ' + response['error']['error_msg'] + ',')
-        if 'captcha_sid' in response['error']:
-            print('captcha_sid:', response['error']['captcha_sid'])
-            print('captcha_img:', response['error']['captcha_img'])
-            f.write('captcha_sid: ' + str(response['error']['captcha_sid']) + ',')
-            f.write('captcha_img: ' + response['error']['captcha_img'] + ',')
+    print(csv_row)
+    csv_rows.append(csv_row)
+    vk.to_csv(csv_rows, file_name, mode)
+    mode = 'a'    
+
+    if 'error' in r:
+        if 'captcha_sid' in r['error']:
             break
-    f.write('\n')
-    f.close()
+
     #если уже 23, то ждем 8 часов
     #на pythonanywhere время по гринвичу, поэтому -5 часов
     if datetime.now().hour == 23 - 5:
-        time.sleep(28800)
+        time.sleep(60*60*8)
     #иначе обычный дилэй в 20 минут
     else:
-        time.sleep(1200)
+        time.sleep(60*20)

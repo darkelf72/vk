@@ -213,14 +213,14 @@ def wall_get_comments(owner_id,post_id):
     print('Post', post_id, 'has', len(result['items']), 'comments')
     return result   
 
-def to_csv(rows, file_name):
-    f = open(file_name+'.txt', "w", newline="", encoding='utf-8')
+def to_csv(rows, file_name, mode):
+    f = open(file_name+'.txt', mode, newline="", encoding='utf-8')    
     writer = csv.DictWriter(f,fieldnames=rows[0].keys())#,delimiter='\t')
-    writer.writeheader()
+    if mode == 'w':
+        writer.writeheader()
     writer.writerows(rows)
     f.close()
-    print('Saved', len(rows), 'rows to file', file_name + '.csv')
-
+    print('Saved', len(rows), 'rows to file', file_name)
 
 def users_from_csv(file_name, last_id):
     f = open(file_name+'.csv', "r", newline="", encoding='utf-8')
