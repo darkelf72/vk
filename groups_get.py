@@ -26,4 +26,4 @@ for user in users:
     csv_row['domain'] = user['domain']
     csv_rows.append(csv_row)
 if len(csv_rows) > 0:
-	vk.to_csv(csv_rows,group,'w')
+	vk.to_csv(csv_rows,group)

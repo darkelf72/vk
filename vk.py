@@ -215,23 +215,19 @@ def wall_get_comments(owner_id,post_id):
     print('Post', post_id, 'has', len(result['items']), 'comments')
     return result   
 
-def to_csv(rows, file_name, mode):
-    f = open(file_name+'.txt', mode, newline="", encoding='utf-8')    
-    writer = csv.DictWriter(f,fieldnames=rows[0].keys())#,delimiter='\t')
+def to_csv(rows, file_name, file_ext='csv', mode='w', encoding='utf-8', delimiter=','):
+    f = open(file_name+'.'+file_ext, mode, newline="", encoding=encoding)
+    writer = csv.DictWriter(f,fieldnames=rows[0].keys(),delimiter=delimiter)
     if mode == 'w':
         writer.writeheader()
     writer.writerows(rows)
     f.close()
     print('Saved', len(rows), 'rows to file', file_name)
 
-def users_from_csv(file_name, last_id):
-    f = open(file_name+'.csv', "r", newline="", encoding='utf-8')
-    reader = csv.reader(f)
-    users = []
-    for row in reader:
-        if int(row[0]) > last_id:
-            users.append({'id':row[0],'name':row[1],'domain':row[2]})
-    #users.sort()
+def from_csv(file_name, file_ext='csv', mode='r', encoding='utf-8', delimiter=','):
+    f = open(file_name+'.'+file_ext, mode, newline="", encoding=encoding)
+    reader = csv.DictReader(f,delimiter=delimiter)
+    rows = list(reader)
     f.close()
-    print('Loaded', len(users), 'users from file', file_name)
-    return users
+    print('Loaded', len(rows), 'rows from file', file_name)
+    return rows

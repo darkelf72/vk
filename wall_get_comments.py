@@ -47,5 +47,5 @@ for post in posts:
         print(csv_row)
         csv_rows.append(csv_row)
     #break
-vk.to_csv(csv_rows,str(owner_id),'w')
+vk.to_csv(csv_rows,str(owner_id))
 

@@ -28,12 +28,21 @@ group_id = 'mozgoboj_tmn'
 group_id = 'quizplease_tmn'
 group_id = 'quizium_tmn'
 group_id = 'komnatatyumen'
+last_user_id = 17167793
 
-users = vk.users_from_csv(group_id,13500481)
+users = vk.from_csv(group_id)
 
+skipped = 0
 mode = 'w'
 file_name = datetime.now().strftime("%Y%m%d_%H%M%S")
 for user in users:
+    if float(user['id']) <= last_user_id:
+        skipped += 1
+        continue
+    if skipped > 0:
+        print('Skipped',skipped,'users')
+        skipped = 0
+
     csv_rows = []
     csv_row = {}
     csv_row['dt'] = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
@@ -47,7 +56,7 @@ for user in users:
 
     print(csv_row)
     csv_rows.append(csv_row)
-    vk.to_csv(csv_rows, file_name, mode)
+    vk.to_csv(csv_rows, file_name, 'log', mode)
     mode = 'a'
 
     if 'error' in r:
