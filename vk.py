@@ -130,8 +130,8 @@ def messages_send(user_id,message,attachment):
     parameters['user_id'] = user_id
     parameters['message'] = message
     parameters['attachment'] = attachment
-    parameters['captcha_sid'] = 288018680113
-    parameters['captcha_key'] = 's4h8c'
+    parameters['captcha_sid'] = 590442462468
+    parameters['captcha_key'] = 'dkq8q'
     r = requests.get(api + method_name, parameters)
     result = json.loads(r.text)
     print('Message have sent to', user_id, result)
