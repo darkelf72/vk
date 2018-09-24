@@ -4,18 +4,18 @@ from datetime import timedelta
 import time
 import vk
 
-next_date = datetime(2018,9,6)
+next_date = datetime(2018,10,4)
 next_hour = 19
 next_minute = next_date.month
 next_datetime = next_date + timedelta(hours=next_hour) + timedelta(minutes=next_minute)
 next_place = 'гриль-бар Колбас-Барабас'
-#next_place = 'ресторан Максимиланс'
+next_place = 'ресторан Максимиланс'
 next_text = next_datetime.strftime("%d %B %H:%M") + ' в ' + next_place
 
 text = '''
 Привет&#128075; Лига Индиго собирает под одной крышей умных, талантливых и веселых людей.
 Лига Индиго - это не просто очередной квиз&#9757; Раунды ligaindigo.ru/raunds настолько разнообразны, что каждый игрок в команде сможет проявить себя.
-Мы уже провели несколько игр, и это было круто&#128293; Фотоотчеты ты можешь посмотреть в нашей группе vk.com/li_tyumen.
+Фотоотчеты с наших игр&#128293; ты можешь посмотреть в группе vk.com/li_tyumen.
 '''
 #на pythonanywhere время по гринвичу, поэтому -5 часов
 if datetime.now() > next_datetime - timedelta(hours=5):
@@ -28,7 +28,7 @@ group_id = 'mozgoboj_tmn'
 group_id = 'quizplease_tmn'
 group_id = 'quizium_tmn'
 group_id = 'komnatatyumen'
-last_user_id = 17167793
+last_user_id = 26495083
 
 users = vk.from_csv(group_id)
 

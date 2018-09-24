@@ -2,9 +2,9 @@ from datetime import datetime
 import time
 import vk
 
-owner_id = 124597198 #mzgb_tmn
-owner_id = 155184737 #quizplease_tmn
-owner_id = 141854271 #quizium_tmn
+owner_id = -124597198 #mzgb_tmn
+owner_id = -155184737 #quizplease_tmn
+owner_id = -141854271 #quizium_tmn
 exclude_id = []
 exclude_id.append(owner_id)
 exclude_id.append(376951514) #mozgobojtmn, Анна Ветрова

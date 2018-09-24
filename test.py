@@ -1,5 +1,3 @@
 import vk
 
-users = vk.from_csv('quizplease_tmn','csv')
-for user in users:
-	print(user['id'])
+vk.wall_get(5879128)
