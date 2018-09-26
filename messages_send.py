@@ -21,6 +21,23 @@ for row in reader:
     message = message + 'Пост с голосовалкой находится у нас в группе vk.com/li_tyumen?w=wall-148853382_404' + '\n'
     message = message + 'Спасибо :)' 
 
+    message = 'Добрый день, ' + row[1] + '!' + '\n'
+    message = message + 'Мы рады представить анонс первой игры осеннего сезона vk.com/li_tyumen?w=wall-148853382_413' + '\n'
+    message = message + 'Также хотим напомнить о том, что в Лиге Индиго есть такая штука как "Баттлы" ligaindigo.ru/faq-items/battly/' + '\n'
+    message = message + 'Баттл с другой командой - это +100 к азарту и дополнительная мотивация победить). ' + '\n'
+    message = message + 'Вызвать команду-соперника на баттл можно прямо в комментариях к анонсу vk.com/li_tyumen?w=wall-148853382_413' + '\n'
+    message = message + 'Если возникнет какой-то вопрос - пишите его там же в комментариях.' + '\n'
+    message = message + 'Список команд и капитанов уже подавших заявки на игру: ' + '\n'
+    message = message + 'Усы Брежнева, vk.com/id347457951' + '\n'
+    message = message + 'Убрироманы, vk.com/id2417468' + '\n'
+    message = message + 'Сборная разборная, vk.com/id36416239' + '\n'
+    message = message + 'Дежурные по апрелю, vk.com/angell_lla' + '\n'
+    message = message + 'Гимназисты и религиовед, vk.com/id7043546' + '\n'
+    message = message + 'Lady в кедах, vk.com/id275014210' + '\n'
+    message = message + 'Хомяк и Ко, vk.com/id16915604' + '\n'
+    message = message + 'Без Собаки, vk.com/id1631017' + '\n'
+    message = message + 'Аист с герба Гааги, vk.com/id5708539'
+
     attachment = ''
     vk.messages_send(row[3],message,attachment)
     time.sleep(3)

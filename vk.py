@@ -17,9 +17,8 @@ def requests_get(method_name, parameters):
     r = requests.get(api + method_name, parameters)
     rj = r.json()
     if 'error' in rj:
-        if 'captcha_sid' not in rj['error']:
-            print(rj)
-            sys.exit()
+        print(rj)
+        #sys.exit()
     return rj
 
 #Выполнить метод api и получить в ответ json всех элементов

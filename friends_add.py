@@ -62,6 +62,7 @@ for user in users:
     if 'error' in r:
         if 'captcha_sid' in r['error']:
             break
+            #raise SystemExit
 
     #если уже 23, то ждем 8 часов
     #на pythonanywhere время по гринвичу, поэтому -5 часов
