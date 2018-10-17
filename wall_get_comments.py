@@ -3,8 +3,8 @@ import time
 import vk
 
 owner_id = -124597198 #mzgb_tmn
-owner_id = -155184737 #quizplease_tmn
-owner_id = -141854271 #quizium_tmn
+#owner_id = -155184737 #quizplease_tmn
+#owner_id = -141854271 #quizium_tmn
 exclude_id = []
 exclude_id.append(owner_id)
 exclude_id.append(376951514) #mozgobojtmn, Анна Ветрова
@@ -15,6 +15,7 @@ query = 'Регистрация'
 keyword = 'чел'
 keyword = ''
 csv_rows = []
+mode = 'w'
 
 #posts = vk.wall_search(owner_id,query)
 posts = vk.wall_get(owner_id)
@@ -25,7 +26,7 @@ for post in posts:
     comments = response['items']
     profiles = response['profiles']
     for comment in comments:
-        if abs(comment['from_id']) in exclude_id:
+        if comment['from_id'] in exclude_id:
             continue
         if keyword != '' and keyword not in (comment['text']):
             continue
@@ -45,7 +46,11 @@ for post in posts:
             csv_row['screen_name'] = 'deleted'
         csv_row['text'] = comment['text'].replace('\n','')
         print(csv_row)
+
+        csv_rows = []
         csv_rows.append(csv_row)
+        vk.to_csv(csv_rows, str(owner_id), 'txt', mode)
+        mode = 'a'
     #break
-vk.to_csv(csv_rows,str(owner_id))
+#vk.to_csv(csv_rows, str(owner_id))
 
