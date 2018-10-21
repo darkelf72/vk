@@ -4,12 +4,12 @@ from datetime import timedelta
 import time
 import vk
 
-next_date = datetime(2018,10,4)
+next_date = datetime(2018,11,1)
 next_hour = 19
 next_minute = next_date.month
 next_datetime = next_date + timedelta(hours=next_hour) + timedelta(minutes=next_minute)
 next_place = 'гриль-бар Колбас-Барабас'
-next_place = 'ресторан Максимиланс'
+next_place = 'ресторан Максимилианс'
 next_text = next_datetime.strftime("%d %B %H:%M") + ' в ' + next_place
 
 text = '''
@@ -28,13 +28,18 @@ group_id = 'mozgoboj_tmn'
 group_id = 'quizplease_tmn'
 group_id = 'quizium_tmn'
 group_id = 'komnatatyumen'
-last_user_id = 26495083
+
+#last_user_id = 26495083
+#log_name = datetime.now().strftime("%Y%m%d_%H%M%S")
+log_name = '1'
+try:
+    last_user_id = float(vk.from_csv(log_name,'log')[-1]['id'])
+except:
+    last_user_id = 94653200
 
 users = vk.from_csv(group_id)
-
 skipped = 0
 mode = 'w'
-file_name = datetime.now().strftime("%Y%m%d_%H%M%S")
 for user in users:
     if float(user['id']) <= last_user_id:
         skipped += 1
@@ -56,7 +61,7 @@ for user in users:
 
     print(csv_row)
     csv_rows.append(csv_row)
-    vk.to_csv(csv_rows, file_name, 'log', mode)
+    vk.to_csv(csv_rows, log_name, 'log', mode)
     mode = 'a'
 
     if 'error' in r:
@@ -65,9 +70,11 @@ for user in users:
             #raise SystemExit
 
     #если уже 23, то ждем 8 часов
+    #если 23, то выходим - задание запустит скрипт в 7:00
     #на pythonanywhere время по гринвичу, поэтому -5 часов
     if datetime.now().hour == 23 - 5:
         time.sleep(60*60*8)
+        #raise SystemExit
     #иначе обычный дилэй в 20 минут
     else:
         time.sleep(60*20)
