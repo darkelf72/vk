@@ -31,11 +31,11 @@ group_id = 'komnatatyumen'
 
 #last_user_id = 26495083
 #log_name = datetime.now().strftime("%Y%m%d_%H%M%S")
-log_name = '1'
+
 try:
-    last_user_id = float(vk.from_csv(log_name,'log')[-1]['id'])
+    last_user_id = float(vk.from_csv(group_id,'log')[-1]['id'])
 except:
-    last_user_id = 94653200
+    last_user_id = 0
 
 users = vk.from_csv(group_id)
 skipped = 0
@@ -61,7 +61,7 @@ for user in users:
 
     print(csv_row)
     csv_rows.append(csv_row)
-    vk.to_csv(csv_rows, log_name, 'log', mode)
+    vk.to_csv(csv_rows, group_id, 'log', mode)
     mode = 'a'
 
     if 'error' in r:

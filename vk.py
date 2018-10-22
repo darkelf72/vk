@@ -187,12 +187,12 @@ def to_csv(rows, file_name, file_ext='csv', mode='w', encoding='utf-8', delimite
         writer.writeheader()
     writer.writerows(rows)
     f.close()
-    print('Saved', len(rows), 'rows to file', file_name)
+    print('Saved', len(rows), 'rows to file', file_name, file_ext)
 
 def from_csv(file_name, file_ext='csv', mode='r', encoding='utf-8', delimiter=','):
     f = open(file_name+'.'+file_ext, mode, newline="", encoding=encoding)
     reader = csv.DictReader(f,delimiter=delimiter)
     rows = list(reader)
     f.close()
-    print('Loaded', len(rows), 'rows from file', file_name)
+    print('Loaded', len(rows), 'rows from file', file_name, file_ext)
     return rows
