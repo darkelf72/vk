@@ -17,12 +17,6 @@ text = '''
 Лига Индиго - это не просто очередной квиз&#9757; Раунды ligaindigo.ru/raunds настолько разнообразны, что каждый игрок в команде сможет проявить себя.
 Фотоотчеты с наших игр&#128293; ты можешь посмотреть в группе vk.com/li_tyumen.
 '''
-#на pythonanywhere время по гринвичу, поэтому -5 часов
-if datetime.now() > next_datetime - timedelta(hours=5):
-    text = text + 'Следующая игра не за горами, не пропусти;)'
-else:
-    text = text + 'Приходи на следующую игру ' + next_text + ' и блесни логикой, эрудицией, интуицией и чувством юмора;)'
-
 group_id = 'ESLPodcast72'
 group_id = 'mozgoboj_tmn'
 group_id = 'quizplease_tmn'
@@ -53,7 +47,13 @@ for user in users:
     csv_row['dt'] = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
     csv_row.update(user)
 
-    r = vk.friends_add(user['id'],text)
+    text_add = ''
+    if datetime.now() > next_date:
+        text_add = text + 'Следующая игра не за горами, не пропусти;)'
+    else:
+        text_add = text + 'Приходи на следующую игру ' + next_text + ' и блесни логикой, эрудицией, интуицией и чувством юмора;)'
+
+    r = vk.friends_add(user['id'],text_add)
     if 'response' in r:
         csv_row['response'] = r['response']
     if 'error' in r:
