@@ -50,6 +50,13 @@ for row in reader:
     message = message + 'Игра состоится 01.11 в ресторане Максимилианс, начало в 19:11.' + '\n'
     message = message + 'С нетерпением ждём встречи!'
 
+    message = 'Привет!'+ ' "Лига Индиго Тюмень" приветствует команду "' + row[0] + '" '
+    message = message + 'и приглашает принять участие в 4й игре второго сезона!' + '\n'
+    message = message + 'Вас ждут 5 интереснейших раундов!' + '\n'
+    message = message + 'vk.com/li_tyumen?w=wall-148853382_485' + '\n'
+    message = message + 'Игра состоится 08.11 в гриль-баре Колбас-Барабас, начало в 19:11.' + '\n'
+    message = message + 'С нетерпением ждём встречи!'
+
     attachment = ''
     vk.messages_send(row[3],message,attachment)
     time.sleep(3)

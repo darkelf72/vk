@@ -6,9 +6,11 @@ group = 'mzgb_tmn'
 group = 'quizplease_tmn'
 group = 'quizium_tmn'
 group = 'komnatatyumen'
+group = 'steel_character72'
 user_id = 480707139 #li_in_tyumen
 
 csv_rows = []
+items = vk.friends_get_requests(user_id)
 users = vk.groups_get(group,user_id)
 for user in users:
     if 'deactivated' in user:
@@ -20,6 +22,8 @@ for user in users:
     if 'city' in user:
         if user['city']['title'] != 'Тюмень':
             continue
+    if user['id'] in items:
+        continue
     csv_row = {}
     csv_row['id'] = user['id']
     csv_row['name'] = user['last_name'] + ' ' + user['first_name']

@@ -98,11 +98,11 @@ def friends_get_requests(user_id):
     method_name = 'friends.getRequests'
     parameters = {}
     parameters['user_id'] = user_id
-    #parameters['offset'] = 100
-    parameters['count'] = 1000
     parameters['out'] = 1
-    rj = requests_get(method_name, parameters)
-    rj = rj['response']['items']
+    parameters['count'] = 1000
+    parameters['offset'] = 0
+    rj = requests_get_all(method_name, parameters)
+    #rj = rj['response']['items']
     print('User has', len(rj), 'requests')
     return rj
 

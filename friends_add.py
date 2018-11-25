@@ -4,12 +4,12 @@ from datetime import timedelta
 import time
 import vk
 
-next_date = datetime(2018,11,1)
+next_date = datetime(2018,12,6)
 next_hour = 19
 next_minute = next_date.month
 next_datetime = next_date + timedelta(hours=next_hour) + timedelta(minutes=next_minute)
 next_place = 'гриль-бар Колбас-Барабас'
-next_place = 'ресторан Максимилианс'
+#next_place = 'ресторан Максимилианс'
 next_text = next_datetime.strftime("%d %B %H:%M") + ' в ' + next_place
 
 text = '''
@@ -17,17 +17,12 @@ text = '''
 Лига Индиго - это не просто очередной квиз&#9757; Раунды ligaindigo.ru/raunds настолько разнообразны, что каждый игрок в команде сможет проявить себя.
 Фотоотчеты с наших игр&#128293; ты можешь посмотреть в группе vk.com/li_tyumen.
 '''
-#на pythonanywhere время по гринвичу, поэтому -5 часов
-if datetime.now() > next_datetime - timedelta(hours=5):
-    text = text + 'Следующая игра не за горами, не пропусти;)'
-else:
-    text = text + 'Приходи на следующую игру ' + next_text + ' и блесни логикой, эрудицией, интуицией и чувством юмора;)'
-
 group_id = 'ESLPodcast72'
 group_id = 'mozgoboj_tmn'
 group_id = 'quizplease_tmn'
 group_id = 'quizium_tmn'
 group_id = 'komnatatyumen'
+group_id = 'steel_character72'
 
 #last_user_id = 26495083
 #log_name = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -53,7 +48,13 @@ for user in users:
     csv_row['dt'] = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
     csv_row.update(user)
 
-    r = vk.friends_add(user['id'],text)
+    text_add = ''
+    if datetime.now() > next_date:
+        text_add = text + 'Следующая игра не за горами, не пропусти;)'
+    else:
+        text_add = text + 'Приходи на следующую игру ' + next_text + ' и блесни логикой, эрудицией, интуицией и чувством юмора;)'
+
+    r = vk.friends_add(user['id'],text_add)
     if 'response' in r:
         csv_row['response'] = r['response']
     if 'error' in r:
